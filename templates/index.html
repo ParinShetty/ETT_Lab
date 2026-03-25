@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask AI App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center font-sans">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-8">
+        <div class="flex flex-col items-center">
+            <img src="{{ url_for('static', filename='camera-flash-icon-4.png') }}" alt="App Logo" class="w-12 h-12 mb-4" />
+            <h1 class="text-2xl font-semibold text-gray-800 mb-2">Welcome to Flash</h1>
+            <p class="text-gray-500 mb-6 text-center">Sign in to continue to your files</p>
+            <form action="/" method="POST" class="w-full flex flex-col gap-4">
+                <input type="text" name="username" placeholder="Username" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-400" />
+                <input type="password" name="password" placeholder="Password" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-400" />
+                <button type="submit"
+                    class="w-full py-2 bg-blue-600 text-white font-medium rounded shadow hover:bg-blue-700 transition">
+                    Login
+                </button>
+            </form>
+            <a href="/signup" class="mt-2 text-blue-600 hover:underline">Don't have an account? Sign up</a>
+            <a href="/main"
+               class="mt-4 w-full inline-block text-center py-2 bg-gray-200 text-gray-700 font-medium rounded shadow hover:bg-gray-300 transition">
+                Guest login
+            </a>
+        </div>
+    </div>
+    {% if message %}
+    <script>
+    alert("{{ message }}");
+    </script>
+{% endif %}
+</body>
+</html>

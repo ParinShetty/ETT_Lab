@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Google Drive — Tailwind Recreation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+    <header class="bg-white shadow flex items-center px-4 py-2 fixed top-0 w-full z-10">
+        <img src="{{ url_for('static', filename='camera-flash-icon-4.png') }}" alt="Drive Logo" class="w-8 h-8 mr-3">
+        <span class="text-xl font-semibold text-gray-800 mr-8">Flash</span>
+        <div class="flex-1">
+            <input type="text" placeholder="Search in Drive"
+                   class="w-full max-w-lg px-4 py-2 border border-gray-200 rounded-full bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div class="ml-6 relative">
+    <div class="flex items-center space-x-3">
+        <button onclick="toggleDropdown()" class="p-2 rounded-full hover:bg-gray-200 focus:outline-none">
+            <img src="{{ url_for('static', filename='user.jpg') }}" alt="User" class="w-9 h-9 rounded-full border-2 border-blue-500">
+        </button>
+    </div>
+    <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
+        <a href="/change-password" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Change Password</a>
+        <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+    </div>
+</div>
+<script>
+    function toggleDropdown() {
+        const menu = document.getElementById('dropdownMenu');
+        menu.classList.toggle('hidden');
+    }
+    document.addEventListener('click', function (e) {
+        const menu = document.getElementById('dropdownMenu');
+        const button = document.querySelector('button');
+        if (!menu.contains(e.target) && !button.contains(e.target)) {
+            menu.classList.add('hidden');
+        }
+    });
+</script>
+
+    </header>
+
+    <div class="flex pt-20">
+        <aside class="w-60 bg-white border-r border-gray-200 min-h-screen flex flex-col p-4">
+            <button id="newBtn" type="button" class="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow mb-4 transition focus:outline-none">
+                <svg class="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 4v16m8-8H4"/>
+                </svg>
+                New
+            </button>
+            <nav class="flex-1">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="#" class="flex items-center px-3 py-2 rounded-lg bg-blue-50 text-blue-700 font-medium">
+                            <svg class="h-5 w-5 mr-2 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                            </svg>
+                            My Flash
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                            <svg class="h-5 w-5 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M16 13v-3a4 4 0 10-8 0v3a4 4 0 008 0z"/>
+                                <path d="M12 17a4 4 0 01-4-4v-3a4 4 0 018 0v3a4 4 0 01-4 4z"/>
+                            </svg>
+                            Computers
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                            <svg class="h-5 w-5 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 6a9 9 0 0118 0v9a9 9 0 01-18 0V6z"/>
+                            </svg>
+                            Shared with me
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                            <svg class="h-5 w-5 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                            Recent
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                            <svg class="h-5 w-5 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 17l4-4 4 4"/>
+                            </svg>
+                            Starred
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="flex items-center px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                            <svg class="h-5 w-5 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M21 21H3v-2a7 7 0 0114 0v2z"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            Trash
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="mt-8">
+                <div class="bg-gray-100 rounded-lg p-3 flex items-center">
+                    <svg class="h-8 w-8 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2L1.5 21h21L12 2z"/>
+                    </svg>
+                    <div>
+                        <div class="text-xs text-gray-700 font-medium">Storage</div>
+                        <div class="w-28 h-2 bg-gray-300 rounded mt-1 mb-1">
+                            <div class="h-2 bg-blue-500 rounded" style="width: 30%"></div>
+                        </div>
+                        <div class="text-xs text-gray-600">4.2 GB of 15 GB used</div>
+                    </div>
+                </div>
+                <button class="mt-3 text-xs text-blue-600 hover:underline">Buy Storage</button>
+            </div>
+        </aside>
+        <main class="flex-1 p-8">
+            <div class="flex items-center justify-between mb-6">
+                <div class="text-lg font-medium text-gray-700">My Flash</div>
+                <div class="flex items-center">
+                    <button class="p-2 rounded hover:bg-gray-200 mr-2">
+                        <svg class="h-6 w-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2"
+                             viewBox="0 0 24 24">
+                            <rect width="20" height="20" x="2" y="2" rx="3" fill="none"/>
+                            <path d="M16 2v20M8 2v20" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <button class="p-2 rounded hover:bg-gray-200" id="openChatModal" aria-label="Open AI Chatbox">
+                        <svg class="h-6 w-6 text-gray-600" fill="none" stroke="currentColor" stroke-width="2"
+                             viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M4 12h16"/>
+                            <path d="M12 4v16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div id="recent-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                
+            </div>
+        </main>
+    </div>
+     
+<div id="chatModal" class="fixed inset-0 z-50 flex items-end justify-end hidden">
+     <div class="fixed inset-0 bg-black bg-opacity-30 transition-opacity" id="closeChatModal"></div>
+  <div class="relative bg-white shadow-lg rounded-lg flex flex-col h-96 w-80 m-4 z-10"
+       onclick="event.stopPropagation();">
+    
+    <div class="px-4 py-2 border-b flex items-center justify-between">
+      <span class="font-bold text-gray-700">AI Chatbox</span>
+      <button class="text-gray-400 hover:text-gray-600 transition" id="closeChatModalBtn" aria-label="Close">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="flex-1 overflow-y-auto p-4 space-y-3">
+      <div class="flex items-start space-x-2">
+        <img src="https://i.pravatar.cc/30" class="w-7 h-7 rounded-full" />
+        <div>
+          <div class="bg-gray-100 p-2 rounded-lg text-sm text-gray-800">It will summarize your files.</div>
+          <div class="text-xs text-gray-400 mt-1">Just now</div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <form class="p-3 border-t flex items-center space-x-2" onsubmit="handleSummarize(event)">
+  <input type="text" id="filename" placeholder="Write File Name"
+         class="flex-1 px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
+  <button type="submit"
+          class="bg-blue-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-blue-600">
+    Send
+  </button>
+</form>
+
+<pre id="output" class="mt-4 text-sm"></pre>
+
+<script>
+async function handleSummarize(event) {
+  event.preventDefault(); 
+  const filename = document.getElementById('filename').value.trim();
+  if (!filename) return alert('Please enter a file name.');
+
+  const chatArea = document.querySelector('.flex-1.overflow-y-auto'); 
+  
+  chatArea.innerHTML += `
+    <div class="flex items-start space-x-2">
+      <img src="https://i.pravatar.cc/30" class="w-7 h-7 rounded-full" />
+      <div>
+        <div class="bg-blue-100 p-2 rounded-lg text-sm text-blue-800">Summarize: <strong>${filename}</strong></div>
+        <div class="text-xs text-gray-400 mt-1">You • Just now</div>
+      </div>
+    </div>
+  `;
+
+  const botId = `bot-${Date.now()}`;
+  chatArea.innerHTML += `
+    <div class="flex items-start space-x-2" id="${botId}">
+      <img src="/static/camera-flash-icon-4.png" class="w-7 h-7 rounded-full" />
+      <div>
+        <div class="bg-gray-100 p-2 rounded-lg text-sm text-gray-800 italic" id="${botId}-text">Summarizing...</div>
+        <div class="text-xs text-gray-400 mt-1">Flash • Just now</div>
+      </div>
+    </div>
+  `;
+
+  chatArea.scrollTop = chatArea.scrollHeight;
+
+  try {
+    const res = await fetch(`/summarize?file=${encodeURIComponent(filename)}`);
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let textBuffer = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      textBuffer += decoder.decode(value, { stream: true });
+      document.getElementById(`${botId}-text`).textContent = textBuffer;
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+  } catch (err) {
+    document.getElementById(`${botId}-text`).textContent = 'Error summarizing file.';
+    console.error('Error:', err);
+  }
+}
+</script>
+
+
+  </div>
+</div>
+    
+    <div id="uploadModal" class="fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center hidden">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-8 relative">
+            <button id="closeUploadModal" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+            <div class="flex flex-col items-center">
+                <img src="https://ssl.gstatic.com/docs/doclist/images/infinite_arrow_favicon_5.ico" alt="Google Drive Logo" class="w-12 h-12 mb-4" />
+                <h1 class="text-2xl font-semibold text-gray-800 mb-6">Upload a File</h1>
+                
+                <div id="success-alert" style="display:none"
+                     class="mb-4 bg-green-100 border border-green-300 text-green-800 px-4 py-2 rounded text-center">
+                    Upload successful!
+                </div>
+                <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data" class="w-full flex flex-col items-center space-y-4">
+                    <input type="file" name="file" required
+                           class="block w-full text-gray-700 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                    <button type="submit"
+                            class="w-full py-2 bg-blue-600 text-white font-medium rounded shadow hover:bg-blue-700 transition">
+                        Upload
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    
+    const uploadModal = document.getElementById('uploadModal');
+    const newBtn = document.getElementById('newBtn');
+    const closeUploadModal = document.getElementById('closeUploadModal');
+    newBtn.addEventListener('click', () => {
+        uploadModal.classList.remove('hidden');
+    });
+    closeUploadModal.addEventListener('click', () => {
+        uploadModal.classList.add('hidden');
+        document.getElementById('success-alert').style.display = 'none';
+        document.getElementById('uploadForm').reset();
+    });
+    window.addEventListener('keydown', function(e) {
+        if (e.key === "Escape" && !uploadModal.classList.contains('hidden')) {
+            uploadModal.classList.add('hidden');
+            document.getElementById('success-alert').style.display = 'none';
+            document.getElementById('uploadForm').reset();
+        }
+    });
+
+    
+    document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData
+            });
+            if (response.ok) {
+                document.getElementById('success-alert').style.display = '';
+                form.reset();
+                
+                loadRecent();
+            } else {
+                alert('Upload failed.');
+            }
+        } catch (err) {
+            alert('Upload failed.');
+        }
+    });
+
+    
+    async function loadRecent() {
+        const grid = document.getElementById("recent-grid");
+        grid.innerHTML = ""; 
+        try {
+            let res = await fetch("/api/files");
+            let files = await res.json();
+            if (!Array.isArray(files)) files = [];
+            for (const file of files) {
+                let ext = (file.filename || "").split('.').pop().toLowerCase();
+                let icon = {
+                    pdf: "text-blue-400",
+                    doc: "text-red-400", 
+                    docx: "text-red-400",
+                    ppt: "text-purple-400", 
+                    pptx: "text-purple-400",
+                    txt: "text-green-400",
+                    jpg: "text-pink-400", 
+                    jpeg: "text-pink-400", 
+                    png: "text-pink-400", 
+                    gif: "text-pink-400"
+                }[ext] || "text-yellow-400";
+                let fileUrl = "/uploads/" + file.stored_as;
+                grid.innerHTML += `
+                    <div class="group flex flex-col items-center p-4 bg-white rounded-lg shadow hover:shadow-lg cursor-pointer transition">
+                        <a href="${fileUrl}" target="_blank">
+                            <svg class="h-10 w-10 ${icon} mb-2" fill="currentColor" viewBox="0 0 24 24">
+                                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                            </svg>
+                        </a>
+                        <span class="text-xs text-gray-700 font-medium">${file.filename || "Untitled"}</span>
+                    </div>
+                `;
+            }
+            if(files.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center text-gray-400">No recent files uploaded yet.</div>`;
+            }
+        } catch(e) {
+            grid.innerHTML = `<div class="col-span-full text-center text-red-400">Failed to load recent files.</div>`;
+        }
+    }
+    window.addEventListener("DOMContentLoaded", loadRecent);
+    </script>
+    <script>
+  
+  document.getElementById('openChatModal').onclick = function() {
+    document.getElementById('chatModal').classList.remove('hidden');
+  };
+  
+  document.getElementById('closeChatModal').onclick = function() {
+    document.getElementById('chatModal').classList.add('hidden');
+  };
+  document.getElementById('closeChatModalBtn').onclick = function() {
+    document.getElementById('chatModal').classList.add('hidden');
+  };
+</script>
+{% if message %}
+    <script>
+    alert("{{ message }}");
+    </script>
+{% endif %}
+</body>
+</html>
