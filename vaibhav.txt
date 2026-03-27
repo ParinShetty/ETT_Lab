@@ -1,6 +1,6 @@
 My first lab commit
 Experiment 1
-Experiment 2
+LAB INTRODUCTION
 Experiment 3
 Experiment 4
 Experiment 5
